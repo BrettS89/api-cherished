@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
 
 export default () => {
-  mongoose.connect('mongodb://localhost:27017/api-test2');
+  mongoose.connect(process.env.MONGO_URI);
 };
