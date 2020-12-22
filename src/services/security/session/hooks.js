@@ -1,5 +1,6 @@
-import setToken from '../../../hooks/setToken.js';
 import authenticate from '../../../hooks/authenticate.js';
+import setToken from '../../../hooks/setToken.js';
+import disallow from '../../../hooks/disallow.js';
 
 export default {
   before: {
@@ -7,7 +8,7 @@ export default {
     create: [],
     find: [authenticate],
     get: [],
-    patch: [],
+    patch: [disallow],
     delete: [],
   },
   after: {

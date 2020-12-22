@@ -1,5 +1,5 @@
 import handlers from '../utilities/handlers.js';
-import { executeHooks } from './hooks.js';
+import { executeAfterHooks, executeBeforeHooks } from './hooks.js';
 
 export default (app) => {
   app.registerService = service => {
@@ -13,13 +13,13 @@ export default (app) => {
     app.get(route, async (req, res) => {
       try {
         if (service.hooks && service.hooks.before) {
-          req = await executeHooks(req, [...service.hooks.before.all, ...service.hooks.before.find]);
+          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.find]);
         }
 
         let data = await service.find({ ...req });
   
         if (hooks && service.hooks.after) {
-          data = await executeHooks(data, [...service.hooks.after.all, ...service.hooks.after.find]);
+          data = await executeAfterHooks({ data, ...req, ...res }, [...service.hooks.after.all, ...service.hooks.after.find]);
         }
   
         handlers.success(req, res, data);
@@ -31,13 +31,13 @@ export default (app) => {
     app.get(routeWithId, async (req, res) => {
       try {
         if (hooks && service.hooks.before) {
-          req = await executeHooks(req, [...service.hooks.before.all, ...service.hooks.before.get]);
+          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.get]);
         }
   
         let data = await service.get(req.params.id, { ...req });
   
         if (hooks && service.hooks.after) {
-          data = await executeHooks(data, [...service.hooks.after.all, ...service.hooks.after.get]);
+          data = await executeAfterHooks({ data, ...req, ...res }, [...service.hooks.after.all, ...service.hooks.after.get]);
         }
         handlers.success(req, res, data);
       } catch(e) {
@@ -48,13 +48,13 @@ export default (app) => {
     app.post(route, async (req, res) => {
       try {
         if (hooks && service.hooks.before) {
-          req = await executeHooks(req, [...service.hooks.before.all, ...service.hooks.before.create]);
+          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.create]);
         }
   
         let data = await service.create(req.body, { ...req });
   
         if (hooks && service.hooks.after) {
-          data = await executeHooks(data, [...service.hooks.after.all, ...service.hooks.after.create]);
+          data = await executeAfterHooks({ data, ...req, ...res }, [...service.hooks.after.all, ...service.hooks.after.create]);
         }
         handlers.success(req, res, data);
       } catch(e) {
@@ -65,13 +65,13 @@ export default (app) => {
     app.patch(routeWithId, async (req, res) => {
       try {
         if (hooks && service.hooks.before) {
-          req = await executeHooks(req, [...service.hooks.before.all, ...service.hooks.before.patch]);
+          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.patch]);
         }
 
         let data = await service.patch(req.params.id, req.body, { ...req });
 
         if (hooks && hooks.after) {
-          data = await executeHooks(data, [...hooks.after.all, ...hooks.after.patch]);
+          data = await executeAfterHooks({ data, ...req, ...res }, [...hooks.after.all, ...hooks.after.patch]);
         }
         
         handlers.success(req, res, data);
