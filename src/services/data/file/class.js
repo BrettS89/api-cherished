@@ -26,6 +26,8 @@ class FileService extends Service {
       ACL: 'public-read',
     });
 
+    console.log(url, key);
+
     return {
       url,
       key: `${s3Key}${key}`,
