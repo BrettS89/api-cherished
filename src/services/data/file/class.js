@@ -7,8 +7,6 @@ class FileService extends Service {
     super(config);
     this.app = config.app;
 
-    console.log(this.app.var('s3AccessKeyId'), this.app.var('s3SecretAccessKey'));
-
     this.s3 = new AWS.S3({
       accessKeyId: this.app.var('s3AccessKeyId'),
       secretAccessKey: this.app.var('s3SecretAccessKey'),
@@ -27,8 +25,6 @@ class FileService extends Service {
       ContentType: file_type,
       ACL: 'public-read',
     });
-
-    console.log(url, s3Key, key);
 
     return {
       url,

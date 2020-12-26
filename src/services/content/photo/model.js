@@ -12,6 +12,10 @@ const schema = new mongoose.Schema({
     required: true,
     index: true,
   },
+  thumbnail: {
+    type: String,
+    required: true,
+  },
   url: {
     type: String,
     required: true
