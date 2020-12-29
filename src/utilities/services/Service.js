@@ -26,7 +26,7 @@ class Service {
     const skip = Number(query.skip) ?? 0;
     const limit = Number(query.limit) ?? 20;
     const sortBy = query.sortBy ?? '_id';
-    const sort = query.sort === -1 ? -1 : 1;
+    const sort = Number(query.sort) === -1 ? -1 : 1;
 
     ['skip', 'limit', 'sortBy', 'sort'].forEach(val => delete query[val]);
 
@@ -62,7 +62,16 @@ class Service {
 
   async update(req, res) {}
 
-  async delete(req, res) {}
+  async delete(id, params) {
+    const Resource = this.model;
+    const resource = await Resource.findById(id);
+
+    if (!resource) throwError(404, 'no resource found');
+
+    await resource.remove();
+
+    return { message: 'resource deleted' };
+  }
 }
 
 export default Service;

@@ -13,7 +13,7 @@ export default (app) => {
     app.get(route, async (req, res) => {
       try {
         if (service.hooks && service.hooks.before) {
-          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.find]);
+          req = await executeBeforeHooks({ ...req, app }, [...service.hooks.before.all, ...service.hooks.before.find]);
         }
 
         let data = await service.find({ ...req });
@@ -31,7 +31,7 @@ export default (app) => {
     app.get(routeWithId, async (req, res) => {
       try {
         if (hooks && service.hooks.before) {
-          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.get]);
+          req = await executeBeforeHooks({ ...req, app }, [...service.hooks.before.all, ...service.hooks.before.get]);
         }
   
         let data = await service.get(req.params.id, { ...req });
@@ -48,7 +48,7 @@ export default (app) => {
     app.post(route, async (req, res) => {
       try {
         if (hooks && service.hooks.before) {
-          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.create]);
+          req = await executeBeforeHooks({ ...req, app }, [...service.hooks.before.all, ...service.hooks.before.create]);
         }
   
         let data = await service.create(req.body, { ...req });
@@ -65,7 +65,7 @@ export default (app) => {
     app.patch(routeWithId, async (req, res) => {
       try {
         if (hooks && service.hooks.before) {
-          req = await executeBeforeHooks(req, [...service.hooks.before.all, ...service.hooks.before.patch]);
+          req = await executeBeforeHooks({ ...req, app }, [...service.hooks.before.all, ...service.hooks.before.patch]);
         }
 
         let data = await service.patch(req.params.id, req.body, { ...req });
@@ -82,7 +82,17 @@ export default (app) => {
 
     app.delete(routeWithId, async (req, res) => {
       try {
+        if (hooks && service.hooks.before) {
+          req = await executeBeforeHooks({ ...req, app }, [...service.hooks.before.all, ...service.hooks.before.delete]);
+        }
 
+        let data = await service.delete(req.params.id, { ...req });
+
+        if (hooks && hooks.after) {
+          data = await executeAfterHooks({ data, ...req, ...res }, [...hooks.after.all, ...hooks.after.delete]);
+        }
+
+        handlers.success(req, res, data);
       } catch(e) {
         handlers.error(req, res, e);
       }

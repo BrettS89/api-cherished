@@ -4,6 +4,7 @@ const schema = new mongoose.Schema({
   account_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'security/account',
+    required: true,
   },
   active: {
     type: Boolean,

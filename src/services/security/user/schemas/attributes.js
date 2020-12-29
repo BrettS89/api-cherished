@@ -1,8 +1,11 @@
-export default {
-  "$id": "/securty/user",
-  "title": "service.security.account.user",
+const schema = {
+  "$id": "/system/schema/service.security.user.attributes",
+  "title": "Service.Security.User.Attributes",
   "type": "object",
   "properties": {
+    "account_id": {
+      "$ref": "/system/schema/database.document.id"
+    },
     "email": {
       "type": "string",
       "description": "email of a user"
@@ -12,6 +15,7 @@ export default {
       "description": "password of a user"
     }
   },
-  "required": ["email", "password"],
   "additionalProperties": false
-}
+};
+
+export default schema;

@@ -11,14 +11,14 @@ export const encryptPassword = req => {
   return req;
 };
 
-export const duplicateEmail = async req => {
-  if (req.body.email) {
+export const duplicateEmail = async context => {
+  if (context.body.email) {
     const user = await app.service('security/user')
-      .find({ query: { email: req.body.email }});
+      .find({ query: { email: context.body.email }});
 
     if (user.length) {
       throwError(400, 'There is already an account associated with this email');
     }
   }
-  return req;
+  return context;
 };

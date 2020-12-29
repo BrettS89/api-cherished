@@ -6,9 +6,9 @@ export default {
     all: [],
     create: [],
     find: [authenticate],
-    get: [],
-    patch: [disallow],
-    delete: [disallow],
+    get: [authenticate],
+    patch: [authenticate],
+    delete: [authenticate],
   },
   after: {
     all: [],

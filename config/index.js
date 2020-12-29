@@ -5,5 +5,7 @@ export default {
   s3Bucket: 'S3_BUCKET',
   s3BucketKey: 'S3_BUCKET_KEY',
   sendgridApiKey: 'SENDGRID_API_KEY',
+  schemas: {},
   services: {},
+  uri: 'URI',
 };

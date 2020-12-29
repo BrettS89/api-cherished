@@ -1,3 +1,4 @@
+import ajv from './ajv.js';
 import envVars from './envVars.js';
 import http from './http.js';
 import registerService from './registerService.js';
@@ -7,6 +8,7 @@ import sendgridUtil from './sendgrid.js';
 import serviceUtils from './serviceUtils.js';
 
 export default [
+  ajv,
   envVars,
   http,
   registerService,

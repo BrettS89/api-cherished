@@ -6,7 +6,7 @@ import { getFamilyName } from './hooks/index.js';
 export default {
   before: {
     all: [],
-    create: [authenticate, familyIdCheck],
+    create: [authenticate],
     find: [authenticate],
     get: [disallow],
     patch: [authenticate],
