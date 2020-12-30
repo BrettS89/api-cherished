@@ -1,7 +1,7 @@
-export default {
+module.exports = {
   // ...
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   setupFilesAfterEnv: [
-      "./test/setup.js",
-      // can have more setup files here
+    "./test/setup.js",
   ],
 };

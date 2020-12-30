@@ -8,7 +8,7 @@ export default {
     create: [],
     find: [authenticate, familyIdCheck],
     get: [disallow],
-    patch: [disallow],
+    patch: [authenticate],
     delete: [disallow],
   },
   after: {

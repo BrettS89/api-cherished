@@ -5,7 +5,7 @@ import { getToken } from '../../../../test/utils';
 const request = supertest(app);
 
 describe('security/user service', () => {
-  test('create', async () => {
+  test('create', async (done) => {
     const email = `${uuidv4()}@example.com`;
 
     const res = await request
@@ -17,9 +17,10 @@ describe('security/user service', () => {
 
     expect(user.email).toBe(email);
     expect(typeof user.token).toBe('string');
+    done();
   });
 
-  test('patch', async () => {
+  test('patch', async (done) => {
     const token = await getToken(request);
 
     const email = `${uuidv4()}@example.com`;
@@ -41,5 +42,6 @@ describe('security/user service', () => {
     const updatedUser = updated.body.data;
 
     expect(updatedUser.email).toBe(email2);
+    done();
   });
 });
