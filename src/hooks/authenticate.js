@@ -4,6 +4,8 @@ import app from '../index.js';
 import throwError from '../utilities/throwError.js';
 
 const authenticate = async req => {
+  console.log(req.headers);
+  console.log(req.header);
   
   const token = req.headers && req.headers['authorization'] ? req.headers['authorization'] : req.header('authorization');
 
