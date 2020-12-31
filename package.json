@@ -10,7 +10,7 @@
     "build": "./node_modules/.bin/babel src --out-dir dist",
     "dev": "nodemon --exec babel-node ./src/server.js",
     "test": "jest --setupFiles dotenv/config --testEnvironment=node --runInBand --no-cache",
-    "start": "node ./dist/src/server.js"
+    "start": "node ./dist/server.js"
   },
   "heroku-run-build-script": true,
   "keywords": [],
