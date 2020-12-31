@@ -5,6 +5,11 @@ import throwError from '../utilities/throwError.js';
 
 const authenticate = async req => {
   let rawToken = null;
+  let propertyToken = null;
+  let functionToken = null;
+
+  console.log('RAW', req.rawHeaders);
+  console.log('REGULAR', req.headers);
 
   for (let i = 0; i < req.rawHeaders.length; i++) {
     if (req.rawHeaders[i] === 'authorization') {
@@ -12,15 +17,27 @@ const authenticate = async req => {
     }
   }
 
-  const token = req.headers && req.headers['authorization'] 
-    ? req.headers['authorization'] 
-    : typeof req.header === 'function' 
-      ? req.header('authorization') 
-      : null;
+  try {
+    propertyToken = req.headers['authorization'];
+  } catch(e) {
+    console.log('PROPERTY ERROR', e);
+  }
 
-  console.log(token, rawToken);
+  try {
+    functionToken = req.header('authorization');
+  } catch(e) {
+    console.log('FUNCTION ERROR', e);
+  }
 
-  const finalToken = token || rawToken;
+  console.log(rawToken, propertyToken, functionToken);
+
+  // const token = req.headers && req.headers['authorization'] 
+  //   ? req.headers['authorization'] 
+  //   : typeof req.header === 'function' 
+  //     ? req.header('authorization') 
+  //     : null;
+
+  const finalToken = rawToken || propertyToken || functionToken;
 
   if (!finalToken) throwError(401, 'Unauthorized');
 
@@ -29,16 +46,16 @@ const authenticate = async req => {
 	} catch (e) {
 
     const error = e.toString().split(' ')[2];
-    console.log('eeee', error)
+
     if (error === 'signature') throwError(401, 'Unauthorized');
 	}
 
 	const decodedUser = jwt.decode(finalToken);
-  console.log(decodedUser);
+
   if (!decodedUser) throwError(401, 'Unauthorized');
   
   const user = await app.service('security/user').get(decodedUser._id);
-  console.log(user)
+
   if (!user) throwError(401, 'Unauthorized');
 
   req.user = user;
