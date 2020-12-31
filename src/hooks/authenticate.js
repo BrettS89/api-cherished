@@ -20,6 +20,8 @@ const authenticate = async req => {
 
   const finalToken = rawToken;
 
+  console.log(rawToken, finalToken);
+
   if (!finalToken) throwError(401, 'Unauthorized');
 
 	try {
@@ -27,14 +29,14 @@ const authenticate = async req => {
 	} catch (e) {
 
     const error = e.toString().split(' ')[2];
-
+    console.log('eeee', error)
     if (error === 'signature') throwError(401, 'Unauthorized');
 	}
 
 	const decodedUser = jwt.decode(finalToken);
-
-  if (!decodedUser) throwError(401, 'Unauthorized');
   console.log(decodedUser);
+  if (!decodedUser) throwError(401, 'Unauthorized');
+  
   const user = await app.service('security/user').get(decodedUser._id);
   console.log(user)
   if (!user) throwError(401, 'Unauthorized');
