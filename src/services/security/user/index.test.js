@@ -36,7 +36,7 @@ describe('security/user service', () => {
     const updated = await request
       .patch(`/security/user/${user._id}`)
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ email: email2 });
 
     const updatedUser = updated.body.data;

@@ -10,7 +10,7 @@ describe('security/invitation service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ name: 'Test family' });
 
     const account = res.body.data;
@@ -18,7 +18,7 @@ describe('security/invitation service', () => {
     const res2 = await request
       .post('/security/invitation')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ account_id: account._id, email: 'test@example.com' });
 
     const invitation = res2.body.data;
@@ -36,7 +36,7 @@ describe('security/invitation service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ name: 'Test family' })
 
     const account = res.body.data;
@@ -45,13 +45,13 @@ describe('security/invitation service', () => {
       await request
         .post('/security/invitation')
         .set('Content-Type', 'application/json')
-        .set('authorization', token)
+        .set('Authorization', token)
         .send({ account_id: account._id, email: 'test@example.com' });
     }
 
     const res2 = await request
       .get('/security/invitation?limit=2')
-      .set('authorization', token);
+      .set('Authorization', token);
 
     const invitations = res2.body.data;
 
@@ -65,7 +65,7 @@ describe('security/invitation service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ name: 'Test family' })
 
     const account = res.body.data;
@@ -73,7 +73,7 @@ describe('security/invitation service', () => {
     const res2 = await request
       .post('/security/invitation')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ account_id: account._id, email: 'test@example.com' });
 
     const invitation = res2.body.data;
@@ -81,7 +81,7 @@ describe('security/invitation service', () => {
     const res3 = await request
       .patch(`/security/invitation/${invitation._id}`)
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ active: false });
 
     const updated = res3.body.data;

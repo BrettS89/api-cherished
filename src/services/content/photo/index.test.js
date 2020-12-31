@@ -11,7 +11,7 @@ describe('content/photo service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ name: 'test family' });
 
     const account = res.body.data;
@@ -19,7 +19,7 @@ describe('content/photo service', () => {
     const res2 = await request
       .post('/content/album')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ account_id: account._id, name: 'test album' });
 
     const album = res2.body.data;
@@ -27,7 +27,7 @@ describe('content/photo service', () => {
     const res3 = await request
       .post('/content/photo')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({
         account_id: account._id,
         album_id: album._id,
@@ -50,7 +50,7 @@ describe('content/photo service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ name: 'test family' });
 
     const account = res.body.data;
@@ -58,7 +58,7 @@ describe('content/photo service', () => {
     const res2 = await request
       .post('/content/album')
       .set('Content-Type', 'application/json')
-      .set('authorization', token)
+      .set('Authorization', token)
       .send({ account_id: account._id, name: 'test album' });
 
     const album = res2.body.data;
@@ -67,7 +67,7 @@ describe('content/photo service', () => {
       await request
         .post('/content/photo')
         .set('Content-Type', 'application/json')
-        .set('authorization', token)
+        .set('Authorization', token)
         .send({
           account_id: account._id,
           album_id: album._id,
@@ -78,7 +78,7 @@ describe('content/photo service', () => {
 
     const res3 = await request
       .get('/content/photo?limit=2')
-      .set('authorization', token);
+      .set('Authorization', token);
 
     const photos = res3.body.data;
 
