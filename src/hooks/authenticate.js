@@ -3,10 +3,12 @@ import app from '../index.js';
 
 import throwError from '../utilities/throwError.js';
 
-const authenticate = async req => {
-  console.log('REQ', req);
-  
-  const token = req.headers && req.headers['authorization'] ? req.headers['authorization'] : req.header('authorization');
+const authenticate = async req => {  
+  const token = req.headers && req.headers['authorization'] 
+    ? req.headers['authorization'] 
+    : typeof req.header === 'function' 
+      ? req.header('authorization') 
+      : null;
 
   if (!token) throwError(401, 'Unauthorized');
 
