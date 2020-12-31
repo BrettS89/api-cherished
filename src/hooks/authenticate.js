@@ -12,15 +12,15 @@ const authenticate = async req => {
     }
   }
 
-  // const token = req.headers && req.headers['authorization'] 
-  //   ? req.headers['authorization'] 
-  //   : typeof req.header === 'function' 
-  //     ? req.header('authorization') 
-  //     : null;
+  const token = req.headers && req.headers['authorization'] 
+    ? req.headers['authorization'] 
+    : typeof req.header === 'function' 
+      ? req.header('authorization') 
+      : null;
 
-  const finalToken = rawToken;
+  console.log(token, rawToken);
 
-  console.log(rawToken, finalToken);
+  const finalToken = token || rawToken;
 
   if (!finalToken) throwError(401, 'Unauthorized');
 
