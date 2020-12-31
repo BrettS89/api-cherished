@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   jwtSecret: 'JWT_SECRET',
   s3AccessKeyId: 'S3_ACCESS_KEY_ID',
   s3SecretAccessKey: 'S3_SECRET_ACCESS_KEY',
