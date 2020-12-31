@@ -17,7 +17,7 @@ class SessionService extends Service {
     if (!user) {
       throwError(404, 'No user was found with this email');
     }
-
+    
     const passwordMatch = bcrypt.compareSync(data.password, user.password);
 
     if (!passwordMatch) throwError(401, 'Incorrect login credentials');
