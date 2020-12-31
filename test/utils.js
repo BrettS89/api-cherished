@@ -1,7 +1,13 @@
-export const getToken = async (request) => {
-  const res = await request['post']('/security/session')
-    .set('Accept', 'application/json')
-    .send({ email: 'blsodie@gmail.com', password: 'password' });
+import { v4 as uuidv4 } from 'uuid';
 
-  return res.body.data.token;
+export const getToken = async (request) => {
+  const email = `${uuidv4()}@example.com`;
+
+  const res = await request
+    .post('/security/user')
+    .set('Content-Type', 'application/json')
+    .send({ email, password: 'password' });
+
+  const user = res.body.data;
+  return user.token;
 };

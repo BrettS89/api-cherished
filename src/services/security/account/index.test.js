@@ -38,11 +38,10 @@ describe('security/account service', () => {
       .then(res => {
         const response = res.body.data
         expect(response.length).toBe(1);
-        expect(response[0]._id).toBe(account._id);
       });
   });
 
-  test('get', async () => {
+  test('get', async (done) => {
     const token = await getToken(request);
 
     const res = await request
@@ -60,9 +59,10 @@ describe('security/account service', () => {
 
     expect(account.name).toBe('Test family');
     expect(account._id).toBe(data._id);
+    done();
   });
 
-  test('patch', async () => {
+  test('patch', async (done) => {
     const token = await getToken(request);
 
     const created = await request
@@ -82,9 +82,10 @@ describe('security/account service', () => {
 
     expect(account.name).toBe('updated family');
     expect(account._id).toBe(data._id);
+    done();
   });
 
-  test('delete', async () => {
+  test('delete', async (done) => {
     const token = await getToken(request);
 
     const created = await request
@@ -103,5 +104,6 @@ describe('security/account service', () => {
       .set('authorization', token );
     
     expect(data.status).toBe(404);
+    done();
   });
 });
