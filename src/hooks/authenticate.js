@@ -3,17 +3,28 @@ import app from '../index.js';
 
 import throwError from '../utilities/throwError.js';
 
-const authenticate = async req => {  
-  const token = req.headers && req.headers['Authorization'] 
-    ? req.headers['Authorization'] 
+const authenticate = async req => {
+  console.log(req.rawHeaders);
+  let rawToken = null;
+
+  for (let i = 0; i < req.rawHeaders.length; i++) {
+    if (req.rawHeaders[i] === 'authorization') {
+      rawToken = req.rawHeaders[i + 1];
+    }
+  }
+
+  const token = req.headers && req.headers['authorization'] 
+    ? req.headers['authorization'] 
     : typeof req.header === 'function' 
-      ? req.header('Authorization') 
+      ? req.header('authorization') 
       : null;
 
-  if (!token) throwError(401, 'Unauthorized');
+  const finalToken = token ?? rawToken;
+
+  if (!finalToken) throwError(401, 'Unauthorized');
 
 	try {
-		jwt.verify(token, app.var('jwtSecret'));
+		jwt.verify(finalToken, app.var('jwtSecret'));
 	} catch (e) {
 
     const error = e.toString().split(' ')[2];
@@ -21,7 +32,7 @@ const authenticate = async req => {
     if (error === 'signature') throwError(401, 'Unauthorized');
 	}
 
-	const decodedUser = jwt.decode(token);
+	const decodedUser = jwt.decode(finalToken);
 
   if (!decodedUser) throwError(401, 'Unauthorized');
 

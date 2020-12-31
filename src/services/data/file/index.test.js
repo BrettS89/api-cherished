@@ -10,7 +10,7 @@ describe('data/file service', () => {
     const res = await request
       .post('/data/file')
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ file_type: 'image/png' })
 
     const file = res.body.data;

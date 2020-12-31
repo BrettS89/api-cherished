@@ -10,7 +10,7 @@ describe('content/album service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ name: 'test family' });
 
     const account = res.body.data;
@@ -18,7 +18,7 @@ describe('content/album service', () => {
     const res2 = await request
       .post('/content/album')
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ account_id: account._id, name: 'test album' });
 
     const album = res2.body.data;
@@ -34,7 +34,7 @@ describe('content/album service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ name: 'test family' });
 
     const account = res.body.data;
@@ -43,13 +43,13 @@ describe('content/album service', () => {
       await request
         .post('/content/album')
         .set('Content-Type', 'application/json')
-        .set('Authorization', token)
+        .set('authorization', token)
         .send({ account_id: account._id, name: 'test album' });
     }
 
     const res2 = await request
       .get('/content/album?limit=2')
-      .set('Authorization', token);
+      .set('authorization', token);
 
     const albums = res2.body.data;
 
@@ -63,7 +63,7 @@ describe('content/album service', () => {
     const res = await request
       .post('/security/account')
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ name: 'test family' });
 
     const account = res.body.data;
@@ -71,7 +71,7 @@ describe('content/album service', () => {
     const res2 = await request
       .post('/content/album')
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ account_id: account._id, name: 'test album' });
 
     const album = res2.body.data;
@@ -79,7 +79,7 @@ describe('content/album service', () => {
     const res3 = await request
       .patch(`/content/album/${album._id}`)
       .set('Content-Type', 'application/json')
-      .set('Authorization', token)
+      .set('authorization', token)
       .send({ name: 'updated test album' });
 
     const updated = res3.body.data;

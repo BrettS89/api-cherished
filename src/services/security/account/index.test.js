@@ -34,7 +34,7 @@ describe('security/account service', () => {
 
     return request
       .get('/security/account?sort=-1&limit=1')
-      .set('Authorization', token )
+      .set('authorization', token )
       .then(res => {
         const response = res.body.data
         expect(response.length).toBe(1);
@@ -53,7 +53,7 @@ describe('security/account service', () => {
 
     const found = await request
       .get(`/security/account/${data._id}`)
-      .set('Authorization', token );
+      .set('authorization', token );
 
     const account = found.body.data;
 
@@ -75,7 +75,7 @@ describe('security/account service', () => {
     const updated = await request
       .patch(`/security/account/${data._id}`)
       .set('Content-Type', 'application/json')
-      .set('Authorization', token )
+      .set('authorization', token )
       .send({ name: 'updated family' });
 
     const account = updated.body.data;
@@ -97,11 +97,11 @@ describe('security/account service', () => {
 
     await request
       .delete(`/security/account/${account._id}`)
-      .set('Authorization', token );
+      .set('authorization', token );
 
     const data = await request
       .get(`/security/account/${account._id}`)
-      .set('Authorization', token );
+      .set('authorization', token );
     
     expect(data.status).toBe(404);
     done();
