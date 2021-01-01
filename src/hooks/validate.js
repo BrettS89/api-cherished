@@ -1,4 +1,4 @@
-const validate = schema => {
+export const validate = schema => {
   return (context) => {
     const { app } = context;
     const foundSchema = app.schema(`/system/schema/${schema}`);
@@ -11,10 +11,6 @@ const validate = schema => {
 
     if (valid) return context;
 
-    console.log(validate);
-
     throw new Error('Validation failed');
   };
 };
-
-export default validate;

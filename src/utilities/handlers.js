@@ -4,7 +4,6 @@ const success = (req, res, data={}) => {
 };
 
 const error = (req, res, e) => {
-  console.log(e);
   if (e.status) {
     res.status(e.status).json({ error: e.error.message });
   } else {
