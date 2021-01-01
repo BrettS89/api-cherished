@@ -1,8 +1,5 @@
 import { duplicateEmail, encryptPassword } from './hooks/index.js';
-import setToken from '../../../hooks/setToken.js';
-import validate from '../../../hooks/validate.js';
-import disallow from '../../../hooks/disallow.js';
-import authenticate from '../../../hooks/authenticate.js';
+import { authenticate, disallow, setToken, validate } from '../../../hooks';
 
 export default {
   before: {

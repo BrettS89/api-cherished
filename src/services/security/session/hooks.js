@@ -1,6 +1,4 @@
-import authenticate from '../../../hooks/authenticate.js';
-import setToken from '../../../hooks/setToken.js';
-import disallow from '../../../hooks/disallow.js';
+import { authenticate, disallow, setToken } from '../../../hooks';
 
 export default {
   before: {

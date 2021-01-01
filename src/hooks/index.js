@@ -1,7 +1,4 @@
-import authenticate from './authenticate.js';
-import setToken from './setToken.js';
-
-export default {
-  authenticate,
-  setToken,
-};
+export { authenticate } from './authenticate';
+export { disallow } from './disallow';
+export { setToken } from './setToken';
+export { validate } from './validate';

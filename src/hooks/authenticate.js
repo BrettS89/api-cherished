@@ -3,7 +3,7 @@ import app from '../index.js';
 
 import throwError from '../utilities/throwError.js';
 
-const authenticate = async req => {
+export const authenticate = async req => {
   let rawToken = null;
 
   for (let i = 0; i < req.rawHeaders.length; i++) {
@@ -37,5 +37,3 @@ const authenticate = async req => {
 
 	return req;
 };
-
-export default (authenticate);

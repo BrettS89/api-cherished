@@ -1,6 +1,5 @@
-import authenticate from '../../../hooks/authenticate.js';
+import { authenticate, disallow } from '../../../hooks';
 import familyIdCheck from '../../../hooks/familyIdCheck.js'
-import disallow from '../../../hooks/disallow.js';
 
 export default {
   before: {
