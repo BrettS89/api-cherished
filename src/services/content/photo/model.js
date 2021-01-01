@@ -10,6 +10,11 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'content/album',
     required: true,
+    index: true,
+  },
+  thumbnail: {
+    type: String,
+    required: true,
   },
   url: {
     type: String,

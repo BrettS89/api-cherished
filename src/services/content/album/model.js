@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'security/account',
     required: true,
+    index: true,
   },
   name: {
     type: String,

@@ -13,7 +13,7 @@ export const sendEmailInvitation = context => {
   return context;
 };
 
-export const getFamilyName = async data => {
+export const getFamilyName = async ({ data }) => {
   const invitation = data.find(d => d.active);
   if (!invitation) return data;
   const family = await api.service('security/account')

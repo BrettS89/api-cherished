@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
 export default () => {
-  mongoose.connect(process.env.MONGO_URI);
+  const uri = process.env.NODE_ENV === 'test'
+    ? process.env.MONGO_TEST
+    : process.env.MONGO_URI;
+
+  mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 };

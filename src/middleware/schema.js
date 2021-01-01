@@ -1,17 +1,19 @@
 import schemas from '../schemas/index.js';
+import config from '../../config/index.js';
 
 export default (app) => {
-  app.schema = (route, schema = null) => {
-    if (!schema) {
-      const foundSchema = schemas[route];
-
-      if (!foundSchema) {
-        throw new Error('No schema found');
-      }
-
-      return foundSchema;
+  app.schema = schema => {
+    if (typeof schema === 'string') {
+      return config.schemas[schema];
     }
 
-    schemas[route] = schema;
-  };
+    if (!schema.$id) {
+      console.log(schema);
+      throw new Error('Schema must include field $id');
+    }
+
+    config.schemas[schema.$id] = schema;
+    
+    app.ajv.addSchema(schema, schema.$id);
+  }
 };

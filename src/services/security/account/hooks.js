@@ -1,11 +1,14 @@
+import disallow from '../../../hooks/disallow.js';
+import authenticate from '../../../hooks/authenticate.js';
+
 export default {
   before: {
     all: [],
     create: [],
-    find: [],
-    get: [],
-    patch: [],
-    delete: [],
+    find: [authenticate],
+    get: [authenticate],
+    patch: [authenticate],
+    delete: [authenticate],
   },
   after: {
     all: [],

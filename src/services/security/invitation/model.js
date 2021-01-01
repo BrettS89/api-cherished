@@ -4,6 +4,7 @@ const schema = new mongoose.Schema({
   account_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'security/account',
+    required: true,
   },
   active: {
     type: Boolean,
@@ -12,7 +13,12 @@ const schema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    index: true,
   },
+  force: {
+    type: Boolean,
+    default: false,
+  }
 }, {
   timestamps: true
 });
