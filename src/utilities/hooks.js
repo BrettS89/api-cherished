@@ -6,9 +6,8 @@ export const executeBeforeHooks = async (obj, hooks) => {
 };
 
 export const executeAfterHooks = async (obj, hooks) => {
-  let data = obj.data;
   for (let fn of hooks) {
-    data = await fn(obj);
+    obj.data = await fn(obj);
   }
-  return data;
+  return obj.data;
 };

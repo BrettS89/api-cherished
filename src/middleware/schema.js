@@ -8,7 +8,6 @@ export default (app) => {
     }
 
     if (!schema.$id) {
-      console.log(schema);
       throw new Error('Schema must include field $id');
     }
 
